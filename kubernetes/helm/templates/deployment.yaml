@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gc-example-deployment
+  labels:
+      app: gc-example
+      chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+      release: {{ .Release.Name }}
+      heritage: {{ .Release.Service }}
+
+spec:
+  replicas: {{ .Values.app.replicas|default 1 }}
+  selector:
+    matchLabels:
+      app: gc-example
+      type: web-service
+  template:
+    metadata:
+      labels:
+        app: gc-example
+        type: web-service
+    spec:
+      containers:
+        - name: php-fpm
+          image: {{ .Values.images.fpm.image }}:{{ .Values.images.fpm.tag }}
+          imagePullPolicy: Always
+          env:
+          {{ include "env_variables" . | indent 20 }}
+        - name: nginx
+          image: {{ .Values.images.nginx.image }}:{{ .Values.images.nginx.tag }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+          {{ include "env_variables" . | indent 20 }}

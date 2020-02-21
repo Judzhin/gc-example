@@ -1,0 +1,22 @@
+{{ define "env_variables" }}
+  {{ range $configMapName, $configMapItems := .Values.configMapEnvVariables }}
+  {{ range $envName, $configMapKey := $configMapItems }}
+-   name: {{ $envName }}
+    valueFrom:
+      configMapKeyRef:
+        name: {{ $configMapName }}
+        key: {{ $configMapKey }}
+      {{ end }}
+  {{ end }}
+  {{ range $secretName, $secretItems := .Values.secretEnvVariables }}
+  {{ range $envName, $secretKey := $secretItems }}
+-   name: {{ $envName }}
+    valueFrom:
+      secretKeyRef:
+        name: {{ $secretName }}
+        key: {{ $secretKey }}
+      {{ end }}
+  {{ end }}
+-   name: RELEASE_NAME
+    value: {{ .Values.releaseName }}
+  {{ end }}

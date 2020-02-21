@@ -1,0 +1,25 @@
+app:
+  domain: gc-example.dev
+  replicas: 1
+
+images:
+  fpm:
+    image: judzhin/php-fpm
+    tag: master
+  nginx:
+    image: judzhin/nginx
+    tag: master
+
+secretEnvVariables:
+  gc-example-secret:
+    APP_SECRET: app.secret
+    APP_API_TOKEN: app.api_token
+
+configMapEnvVariables:
+  gc-example-config:
+    APP_ENV: app.env
+
+cronJobs:
+  gc-example-php-version:
+    command: ['php', '-v']
+    schedule: '* * * * *'

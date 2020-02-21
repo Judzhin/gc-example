@@ -1,0 +1,4 @@
+apiVersion: v1
+name: gc-example
+icon: https://cdn4.iconfinder.com/data/icons/scripting-and-programming-languages/512/php-512.png
+version: 0.0.1

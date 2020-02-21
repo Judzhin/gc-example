@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gc-example-service
+spec:
+  selector:
+    app: gc-example
+    type: web-service
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP

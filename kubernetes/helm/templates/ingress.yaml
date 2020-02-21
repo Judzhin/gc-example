@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: gc-example-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  labels:
+    app: gc-example
+spec:
+  rules:
+    - host: {{ .Values.app.domain }}
+      http:
+        paths:
+          - backend:
+              serviceName: gc-example-service
+              servicePort: 80
+            path: /

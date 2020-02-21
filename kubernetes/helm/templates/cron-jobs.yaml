@@ -1,0 +1,35 @@
+{{ $root := . }}
+
+  {{ range $cronJobName, $cronJobConfigs := .Values.cronJobs }}
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ $cronJobName }}-cron-job
+  labels:
+    app: {{ $cronJobName }}
+    type: cronjob
+    chart: "{{ $root.Chart.Name }}-{{ $root.Chart.Version }}"
+spec:
+  schedule: "{{ $cronJobConfigs.schedule }}"
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        metadata:
+          labels:
+            app: {{ $cronJobName }}
+            type: cronjob
+        spec:
+          containers:
+            - name: gc-example-fpm-cronjob
+              image: {{ $root.Values.images.fpm.image }}:{{ $root.Values.images.fpm.tag }}
+              imagePullPolicy: Always
+              command:
+                {{ range $commandArg := $cronJobConfigs.command }}
+                - {{ $commandArg|quote }}
+                {{ end }}
+              env:
+            {{ include "env_variables" $root | indent 20 }}
+          restartPolicy: Never
+---
+{{ end }}
