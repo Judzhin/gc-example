@@ -17,15 +17,22 @@ services:
       context: ./docker/php/fpm
       dockerfile: Dockerfile
     volumes:
-    - ./app:/var/www
+    - ./app:/var/www:rw
+    - ~/.ssh:/root/.ssh:ro
+    networks:
+      - gc-network
 
   gc-nginx:
     container_name: gc-nginx
     build:
-      context: ./docker/nginx
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+      args:
+        ENVIRONMENT: dev
     volumes:
     - ./app:/var/www
+    networks:
+      - gc-network
     ports:
     - 3107:80
     depends_on:
@@ -33,3 +40,7 @@ services:
 
 volumes:
   composer:
+
+networks:
+  gc-network:
+    external: true
