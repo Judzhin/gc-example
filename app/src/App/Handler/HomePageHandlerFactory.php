@@ -11,8 +11,18 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 use function get_class;
 
+/**
+ * Class HomePageHandlerFactory
+ * @package App\Handler
+ */
 class HomePageHandlerFactory
 {
+    /**
+     * @inheritdoc
+     *
+     * @param ContainerInterface $container
+     * @return RequestHandlerInterface
+     */
     public function __invoke(ContainerInterface $container) : RequestHandlerInterface
     {
         $router   = $container->get(RouterInterface::class);

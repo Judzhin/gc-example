@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gc-example-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: gc-example
+      type: web-service
+  template:
+    metadata:
+      labels:
+        app: gc-example
+        type: web-service
+    spec:
+      containers:
+      - name: gc-php-fpm-example
+        image: judzhin/gc-php-fpm-example:v1
+        imagePullPolicy: Always
+      - name: gc-nginx-example
+        image: judzhin/gc-nginx-example:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          protocol: TCP
