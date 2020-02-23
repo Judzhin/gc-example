@@ -46,7 +46,11 @@ class HomePageHandler implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         /** @var array $data */
-        $data = ['title' => new \DateTime];
+        $data = [
+            'title' => new \DateTime,
+            'POD_IP' => getenv('POD_IP'),
+            'LOG_LEVEL' => getenv('LOG_LEVEL')
+        ];
 
         if ($this->template === null) {
             return new JsonResponse($data);

@@ -5,4 +5,10 @@
 {% block content %}
     <h1>Hello Google Cloud Example!</h1>
     <p>Current date: <small>{{ title|date('Y-m-d H:i:s') }}</small></p>
+    <dl>
+        <dt>Pod IP:</dt>
+        <dd>{{ POD_IP }}</dd>
+        <dt>Log level:</dt>
+        <dd>{{ LOG_LEVEL }}</dd>
+    </dl>
 {% endblock %}

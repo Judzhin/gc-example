@@ -19,12 +19,16 @@ spec:
       - name: gc-php-fpm-example
         image: judzhin/gc-php-fpm-example:v1
         imagePullPolicy: Always
+        env:
+        - name: "POD_IP"
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: "LOG_LEVEL"
+          value: "INFO"
       - name: gc-nginx-example
         image: judzhin/gc-nginx-example:v1
         imagePullPolicy: Always
         ports:
         - containerPort: 80
           protocol: TCP
-        env:
-          - name: "POD_IP"
-            value:

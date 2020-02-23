@@ -1,6 +1,15 @@
 apiVersion: apps/v1
 kind: PersistentVolume
 metadata:
-  name: gc-example-config
+  name: gc-example-persistent-volume
   namespace: gc-example
-data:
+  labels:
+    name: gc-persistent-volume-example
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/var/logs/gc-example"
