@@ -33,22 +33,6 @@ services:
     depends_on:
     - gc-php-fpm
 
-  gc-nginx-upload:
-    container_name: gc-nginx-upload
-    build:
-      context: .
-      dockerfile: ./docker/nginx/Dockerfile
-      args:
-        ENVIRONMENT: dev
-    volumes:
-    - ./app:/var/www
-    networks:
-    - gc-network
-    ports:
-    - 1986:80
-    depends_on:
-    - gc-php-fpm
-
 networks:
   gc-network:
     external: true
