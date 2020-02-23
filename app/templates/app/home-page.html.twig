@@ -3,7 +3,6 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <div class="row">
-        <h1>Hello Google Cloud Example!</h1>
-    </div>
+    <h1>Hello Google Cloud Example!</h1>
+    <p>Current date: <small>{{ title|date('Y-m-d H:i:s') }}</small></p>
 {% endblock %}
