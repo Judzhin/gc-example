@@ -2,25 +2,27 @@ version: '3.5'
 
 services:
 
-  gc-php-cli:
-    container_name: gc-php-cli
-    build:
-      context: ./docker/php
-      dockerfile: Dockerfile
-    volumes:
-    - ./app:/var/www
-    - composer:/root/.composer/cache
+  #  gc-php-cli:
+  #    container_name: gc-php-cli
+  #    build:
+  #      context: ./docker/php
+  #      dockerfile: Dockerfile
+  #    volumes:
+  #    - ./app:/var/www
+  #    - composer:/root/.composer/cache
 
   gc-php-fpm:
     container_name: gc-php-fpm
     build:
-      context: ./docker/php/fpm
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: docker/php-fpm/Dockerfile
+      args:
+        ENVIRONMENT: dev
     volumes:
     - ./app:/var/www:rw
     - ~/.ssh:/root/.ssh:ro
     networks:
-      - gc-network
+    - gc-network
 
   gc-nginx:
     container_name: gc-nginx
@@ -32,14 +34,11 @@ services:
     volumes:
     - ./app:/var/www
     networks:
-      - gc-network
+    - gc-network
     ports:
     - 3107:80
     depends_on:
     - gc-php-fpm
-
-volumes:
-  composer:
 
 networks:
   gc-network:
