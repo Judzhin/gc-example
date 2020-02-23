@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: gc-example-ingress
+  namespace: gc-example
+  annotations:
+#    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+#    nginx.ingress.kubernetes.io/rewrite-target: "/"
+    kubernetes.io/ingress.class: gc-nginx-example
+  labels:
+    app: gc-example
+spec:
+  rules:
+  - http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: gc-example
+          servicePort: 80

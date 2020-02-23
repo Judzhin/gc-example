@@ -1,0 +1,6 @@
+apiVersion: apps/v1
+kind: PersistentVolume
+metadata:
+  name: gc-example-config
+  namespace: gc-example
+data:
