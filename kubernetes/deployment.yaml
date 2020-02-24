@@ -29,12 +29,17 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: gc-example-config
-              key: "DB_PORT"
+              key: DB_PORT
         - name: "DB_USER"
           valueFrom:
             configMapKeyRef:
               name: gc-example-config
-              key: "DB_USER"
+              key: DB_USER
+        - name: "DB_PASS"
+          valueFrom:
+            secretKeyRef:
+              name: gc-example-secret
+              key: DB_PASS
         - name: "POD_IP"
           valueFrom:
             fieldRef:

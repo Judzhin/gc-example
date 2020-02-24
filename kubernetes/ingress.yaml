@@ -6,7 +6,7 @@ metadata:
   annotations:
 #    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 #    nginx.ingress.kubernetes.io/rewrite-target: "/"
-    kubernetes.io/ingress.class: gc-nginx-example
+    kubernetes.io/ingress.class: nginx
   labels:
     app: gc-example
 spec:
