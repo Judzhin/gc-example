@@ -40,3 +40,5 @@ build-production:
 push-production:
 	docker push judzhin/gc-nginx-example:v1
 	docker push judzhin/gc-php-fpm-example:v1
+
+deploy-production: build-production push-production

@@ -30,12 +30,17 @@ spec:
             configMapKeyRef:
               name: gc-example-config
               key: "DB_PORT"
+        - name: "DB_USER"
+          valueFrom:
+            configMapKeyRef:
+              name: gc-example-config
+              key: "DB_USER"
         - name: "POD_IP"
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
         - name: "LOG_LEVEL"
-          value: "INFO"
+          value: "info"
       - name: gc-nginx-example
         image: judzhin/gc-nginx-example:v1
         imagePullPolicy: Always

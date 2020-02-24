@@ -23,6 +23,10 @@
 
 <footer class="container">
     <hr/>
+    <dl class="row small">
+        <dt class="col-2 font-weight-bold">Current date:</dt>
+        <dd class="col-10">{{ "now"|date('Y-m-d H:i:s') }}</dd>
+    </dl>
 </footer>
 
 {% block javascript %}{% endblock %}

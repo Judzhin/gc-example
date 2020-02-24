@@ -1,17 +1,20 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace AppTest\Handler;
 
 use App\Handler\HomePageHandler;
 use App\Handler\HomePageHandlerFactory;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Container\ContainerInterface;
 
+/**
+ * Class HomePageHandlerFactoryTest
+ * @package AppTest\Handler
+ */
 class HomePageHandlerFactoryTest extends TestCase
 {
     /** @var ContainerInterface|ObjectProphecy */
@@ -20,20 +23,26 @@ class HomePageHandlerFactoryTest extends TestCase
     protected function setUp()
     {
         $this->container = $this->prophesize(ContainerInterface::class);
-        $router = $this->prophesize(RouterInterface::class);
 
-        $this->container->get(RouterInterface::class)->willReturn($router);
+        /** @var RouterInterface $router */
+        $router = $this->prophesize(RouterInterface::class);
+        $this->container
+            ->get(RouterInterface::class)
+            ->willReturn($router);
     }
 
-    public function testFactoryWithoutTemplate()
+    public function testFactoryWithoutTemplate(): void
     {
-        $factory = new HomePageHandlerFactory();
-        $this->container->has(TemplateRendererInterface::class)->willReturn(false);
-        $this->container->has(\Zend\Expressive\Template\TemplateRendererInterface::class)->willReturn(false);
+        /** @var FactoryInterface|HomePageHandlerFactory $factory */
+        $factory = new HomePageHandlerFactory;
+        $this->container
+            ->has(TemplateRendererInterface::class)
+            ->willReturn(false);
 
         $this->assertInstanceOf(HomePageHandlerFactory::class, $factory);
 
-        $homePage = $factory($this->container->reveal());
+        /** @var HomePageHandler $homePage */
+        $homePage = $factory($this->container->reveal(), HomePageHandler::class);
 
         $this->assertInstanceOf(HomePageHandler::class, $homePage);
     }

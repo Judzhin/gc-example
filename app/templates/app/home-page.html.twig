@@ -3,14 +3,13 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <h1>Hello Google Cloud Example!</h1>
-    <p>Current date: <small>{{ title|date('Y-m-d H:i:s') }}</small></p>
-    <dl>
-        <dt>DB_HOST:</dt>
-        <dd>{{ DB_HOST }}</dd>
-        <dt>Pod IP:</dt>
-        <dd>{{ POD_IP }}</dd>
-        <dt>Log level:</dt>
-        <dd>{{ LOG_LEVEL }}</dd>
+    <h1>{{ title }}</h1>
+    <dl class="row small">
+        <dt class="col-2 font-weight-bold">Database information:</dt>
+        <dd class="col-10">{{ DB_USER ~ ':' ~ DB_PASS ~ '@' ~ DB_HOST ~ ':' ~ DB_PORT }}</dd>
+        <dt class="col-2 font-weight-bold">Pod IP:</dt>
+        <dd class="col-10">{{ POD_IP }}</dd>
+        <dt class="col-2 font-weight-bold">Log level:</dt>
+        <dd class="col-10">{{ LOG_LEVEL }}</dd>
     </dl>
 {% endblock %}

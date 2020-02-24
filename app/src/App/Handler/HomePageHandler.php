@@ -48,10 +48,10 @@ class HomePageHandler implements RequestHandlerInterface
     {
         /** @var array $data */
         $data = ArrayUtils::merge([
-            'title' => new \DateTime,
+            'title' => 'Hello Google Cloud Example!',
         ], getenv());
 
-        if ($this->template === null) {
+        if (null === $this->template) {
             return new JsonResponse($data);
         }
 
