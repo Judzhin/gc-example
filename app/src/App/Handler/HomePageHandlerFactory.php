@@ -1,37 +1,33 @@
-<?php
-
-declare(strict_types=1);
-
+<?php declare(strict_types=1);
+/**
+ * @access protected
+ * @author Judzhin Miles <info[woof-woof]msbios.com>
+ */
 namespace App\Handler;
 
+use Interop\Container\ContainerInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
-use Psr\Container\ContainerInterface;
-use Psr\Http\Server\RequestHandlerInterface;
-
-use function get_class;
 
 /**
  * Class HomePageHandlerFactory
  * @package App\Handler
  */
-class HomePageHandlerFactory
+class HomePageHandlerFactory implements FactoryInterface
 {
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * @param ContainerInterface $container
-     * @return RequestHandlerInterface
+     * @param string $requestedName
+     * @param array|null $options
+     * @return HomePageHandler
      */
-    public function __invoke(ContainerInterface $container) : RequestHandlerInterface
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): HomePageHandler
     {
-        $router   = $container->get(RouterInterface::class);
-        $template = $container->has(TemplateRendererInterface::class)
-            ? $container->get(TemplateRendererInterface::class)
-            : ($container->has(\Zend\Expressive\Template\TemplateRendererInterface::class)
-                ? $container->get(\Zend\Expressive\Template\TemplateRendererInterface::class)
-                : null);
-
-        return new HomePageHandler(get_class($container), $router, $template);
+        return new HomePageHandler(
+            $container->get(RouterInterface::class), $container->get(TemplateRendererInterface::class)
+        );
     }
 }

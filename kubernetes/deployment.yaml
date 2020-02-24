@@ -20,6 +20,16 @@ spec:
         image: judzhin/gc-php-fpm-example:v1
         imagePullPolicy: Always
         env:
+        - name: "DB_HOST"
+          valueFrom:
+            configMapKeyRef:
+              name: gc-example-config
+              key: "DB_HOST"
+        - name: "DB_PORT"
+          valueFrom:
+            configMapKeyRef:
+              name: gc-example-config
+              key: "DB_PORT"
         - name: "POD_IP"
           valueFrom:
             fieldRef:

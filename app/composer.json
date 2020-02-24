@@ -39,6 +39,7 @@
   },
   "require": {
     "php": "^7.1",
+    "ext-json": "*",
     "laminas/laminas-component-installer": "^2.1.1",
     "laminas/laminas-config-aggregator": "^1.0",
     "laminas/laminas-diactoros": "^1.7.1 || ^2.0",

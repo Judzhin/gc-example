@@ -6,51 +6,50 @@ namespace App\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\JsonResponse;
-use Mezzio\LaminasView\LaminasViewRenderer;
-use Mezzio\Plates\PlatesRenderer;
+use Laminas\Stdlib\ArrayUtils;
 use Mezzio\Router;
 use Mezzio\Template\TemplateRendererInterface;
-use Mezzio\Twig\TwigRenderer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
+/**
+ * Class HomePageHandler
+ * @package App\Handler
+ */
 class HomePageHandler implements RequestHandlerInterface
 {
-    /** @var string */
-    private $containerName;
-
     /** @var Router\RouterInterface */
     private $router;
 
     /** @var null|TemplateRendererInterface */
     private $template;
 
-    public function __construct(
-        string $containerName,
-        Router\RouterInterface $router,
-        ?TemplateRendererInterface $template = null
-    )
+    /**
+     * HomePageHandler constructor.
+     *
+     * @param Router\RouterInterface $router
+     * @param TemplateRendererInterface|null $template
+     */
+    public function __construct(Router\RouterInterface $router, ?TemplateRendererInterface $template = null)
     {
-        $this->containerName = $containerName;
         $this->router = $router;
         $this->template = $template;
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * @param ServerRequestInterface $request
      * @return ResponseInterface
+     * @throws \Exception
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         /** @var array $data */
-        $data = [
+        $data = ArrayUtils::merge([
             'title' => new \DateTime,
-            'POD_IP' => getenv('POD_IP'),
-            'LOG_LEVEL' => getenv('LOG_LEVEL')
-        ];
+        ], getenv());
 
         if ($this->template === null) {
             return new JsonResponse($data);
