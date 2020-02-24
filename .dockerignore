@@ -68,5 +68,5 @@ data/DoctrineORMModule/cache/
 demos/
 extras/documentation
 
-app/config/autoload/development.local.php
-app/config/development.config.php
+# app/config/autoload/development.local.php
+# app/config/development.config.php

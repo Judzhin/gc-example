@@ -20,6 +20,10 @@ FROM scratch as prod
 COPY ./app/ .
 
 RUN /usr/bin/composer install --no-dev -o --no-scripts && \
+     chown -R www-data:www-data .
+
+# For mini debug
+RUN /usr/bin/composer install && \
     chown -R www-data:www-data .
 
 ENV APP_ENV prod
