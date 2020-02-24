@@ -6,6 +6,8 @@ namespace App\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\JsonResponse;
+use Laminas\Log\Logger;
+use Laminas\Log\LoggerInterface;
 use Laminas\Stdlib\ArrayUtils;
 use Mezzio\Router;
 use Mezzio\Template\TemplateRendererInterface;
@@ -19,6 +21,9 @@ use Psr\Http\Server\RequestHandlerInterface;
  */
 class HomePageHandler implements RequestHandlerInterface
 {
+    /** @var LoggerInterface */
+    private $logger;
+
     /** @var Router\RouterInterface */
     private $router;
 
@@ -28,11 +33,13 @@ class HomePageHandler implements RequestHandlerInterface
     /**
      * HomePageHandler constructor.
      *
+     * @param LoggerInterface $logger
      * @param Router\RouterInterface $router
      * @param TemplateRendererInterface|null $template
      */
-    public function __construct(Router\RouterInterface $router, ?TemplateRendererInterface $template = null)
+    public function __construct(LoggerInterface $logger, Router\RouterInterface $router, ?TemplateRendererInterface $template = null)
     {
+        $this->logger = $logger;
         $this->router = $router;
         $this->template = $template;
     }
@@ -46,6 +53,8 @@ class HomePageHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $this->logger->err('Test Error Handler!');
+
         /** @var array $data */
         $data = ArrayUtils::merge([
             'title' => 'Hello Google Cloud Example!',

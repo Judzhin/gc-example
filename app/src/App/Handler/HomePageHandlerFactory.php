@@ -7,6 +7,7 @@
 namespace App\Handler;
 
 use Interop\Container\ContainerInterface;
+use Laminas\Log\Logger;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Mezzio\Router\RouterInterface;
 use Mezzio\Template\TemplateRendererInterface;
@@ -28,6 +29,7 @@ class HomePageHandlerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): HomePageHandler
     {
         return new HomePageHandler(
+            $container->get(Logger::class),
             $container->get(RouterInterface::class),
             $container->has(TemplateRendererInterface::class)
                 ? $container->get(TemplateRendererInterface::class) : null

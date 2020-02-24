@@ -22,4 +22,30 @@ return [
             'template_error' => 'error::error',
         ],
     ],
+
+    'log' => [
+        'writers' => [
+            'stream' => [
+                'name' => \Laminas\Log\Writer\Stream::class,
+                'options' => [
+                    'stream' => "./data/log/errors.log",
+                    'formatter' => [
+                        'name' => \Laminas\Log\Formatter\Simple::class,
+                        'options' => [
+                            'format' => '%timestamp% %priorityName% (%priority%): %message% %extra%',
+                            'dateTimeFormat' => 'c', // 'Y-m-d H:i:s',
+                        ],
+                    ],
+                    'filters' => [
+                        'priority' => [
+                            'name' => \Laminas\Log\Filter\Priority::class,
+                            'options' => [
+                                'priority' => \Laminas\Log\Logger::ERR,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ]
+    ],
 ];

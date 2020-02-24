@@ -43,12 +43,13 @@
     "laminas/laminas-component-installer": "^2.1.1",
     "laminas/laminas-config-aggregator": "^1.0",
     "laminas/laminas-diactoros": "^1.7.1 || ^2.0",
+    "laminas/laminas-log": "^2.12",
+    "laminas/laminas-servicemanager": "^3.3",
     "laminas/laminas-stdlib": "^3.1",
     "laminas/laminas-zendframework-bridge": "^1.0",
     "mezzio/mezzio": "^3.0.1",
-    "mezzio/mezzio-helpers": "^5.0",
-    "laminas/laminas-servicemanager": "^3.3",
     "mezzio/mezzio-fastroute": "^3.0",
+    "mezzio/mezzio-helpers": "^5.0",
     "mezzio/mezzio-twigrenderer": "^2.0"
   },
   "require-dev": {
