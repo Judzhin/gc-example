@@ -4,12 +4,12 @@ metadata:
   name: gc-example-svc
   namespace: gc-example
 spec:
-  # type: NodePort # need to remove
+  type: NodePort # need to remove
   selector:
-    app: gc-example-svc
-    # type: web-service
+    app: gc-example
+    type: web-service
   ports:
   - port: 80
     targetPort: 80
-    # nodePort: 32007 # need to remove
+    nodePort: 32007 # need to remove
     protocol: TCP
