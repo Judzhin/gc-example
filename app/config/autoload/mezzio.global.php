@@ -29,6 +29,7 @@ return [
                 'name' => \Laminas\Log\Writer\Stream::class,
                 'options' => [
                     'stream' => "./data/log/errors.log",
+                    'mode' => 'a+',
                     'formatter' => [
                         'name' => \Laminas\Log\Formatter\Simple::class,
                         'options' => [
