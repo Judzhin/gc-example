@@ -20,9 +20,9 @@ spec:
             type: cronjob
         spec:
           volumes:
-            - name: gc-log-storages
-              persistentVolumeClaim:
-                claimName: gc-example-pvc
+          - name: gc-log-storages
+            persistentVolumeClaim:
+              claimName: gc-example-pvc
           restartPolicy: Never
           containers:
             - name: gc-cron-example

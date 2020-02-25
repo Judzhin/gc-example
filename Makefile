@@ -33,6 +33,9 @@ up: docker-compose.yaml ## Start the docker hub (MySQL,redis,adminer,elasticsear
 down: docker-compose.yaml ## Stop the docker hub
 	$(DOCKER) down --remove-orphans
 
+clear-cache: composer.json ## Update vendors according to the composer.json file
+	docker-compose run --rm gc-php-fpm php bin/clear-config-cache.php
+
 build-production:
 	docker build --build-arg ENVIRONMENT=prod -f docker/nginx/Dockerfile -t judzhin/gc-nginx-example:v1 .
 	docker build --build-arg ENVIRONMENT=prod -f docker/php-fpm/Dockerfile -t judzhin/gc-php-fpm-example:v1 .

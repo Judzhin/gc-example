@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * @see       https://github.com/mezzio/mezzio-skeleton for the canonical source repository
@@ -6,40 +6,45 @@
  * @license   https://github.com/mezzio/mezzio-skeleton/blob/master/LICENSE.md New BSD License
  */
 
-declare(strict_types=1);
+use Laminas\Log\Logger;
+use Laminas\Log\LoggerInterface;
+use Psr\Container\ContainerInterface;
 
 chdir(__DIR__ . '/../');
 
 require 'vendor/autoload.php';
 
-$config = include 'config/config.php';
+// $config = include 'config/config.php';
 
-if (! isset($config['config_cache_path'])) {
-    echo "No configuration cache path found" . PHP_EOL;
-    exit(0);
-}
+/**
+ * Self-called anonymous function that creates its own scope and keep the global namespace clean.
+ */
+(function () {
+    /** @var ContainerInterface $container */
+    $container = require 'config/container.php';
 
-if (! file_exists($config['config_cache_path'])) {
-    printf(
-        "Configured config cache file '%s' not found%s",
-        $config['config_cache_path'],
-        PHP_EOL
-    );
-    exit(0);
-}
+    /** @var array $config */
+    $config = $container->get('config');
 
-if (false === unlink($config['config_cache_path'])) {
-    printf(
-        "Error removing config cache file '%s'%s",
-        $config['config_cache_path'],
-        PHP_EOL
-    );
-    exit(1);
-}
+    /** @var LoggerInterface $logger */
+    $logger = $container->get(Logger::class);
 
-printf(
-    "Removed configured config cache file '%s'%s",
-    $config['config_cache_path'],
-    PHP_EOL
-);
+    if (! isset($config['config_cache_path'])) {
+        $logger->info('No configuration cache path found');
+        exit(0);
+    }
+
+    if (! file_exists($config['config_cache_path'])) {
+        $logger->info(sprintf(    "[Job] Configured config cache file '%s' not found", $config['config_cache_path']));
+        exit(0);
+    }
+
+    if (false === unlink($config['config_cache_path'])) {
+        $logger->info(sprintf(    "[Job] Error removing config cache file '%s'", $config['config_cache_path']));
+        exit(1);
+    }
+
+    $logger->info(sprintf(    "[Job] Removed configured config cache file '%s'", $config['config_cache_path']));
+})();
+
 exit(0);

@@ -40,7 +40,7 @@ spec:
           name: gc-log-storages
         env:
         - name: "LOG_LEVEL"
-          value: "err"
+          value: "err1"
         - name: "POD_IP"
           valueFrom:
             fieldRef:

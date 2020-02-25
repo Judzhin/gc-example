@@ -17,7 +17,7 @@ require 'vendor/autoload.php';
 
     /** @var LoggerInterface $logger */
     $logger = $container->get(Logger::class);
-    $logger->info(sprintf('[Job] Prepare project pod "%s" before work.', getenv('POD_IP')));
+    $logger->info(sprintf('[Init] Prepare project pod "%s" before work.', getenv('POD_IP')));
     $logger->info('- Run migrations');
     $logger->info('- Update cache');
     $logger->info('- And something more');
