@@ -1,20 +1,20 @@
 ### ZendFramework template
 # Composer files
-# app/vendor/
+app/vendor/
 
 # Local configs
-# app/config/autoload/*.local.php
+app/config/autoload/*.local.php
 
 # Binary gettext files
 *.mo
 
 # Data
-# app/data/logs/
-# app/data/cache/
+app/data/logs/
+app/data/cache/
 app/data/sessions/
 app/data/tmp/
 app/temp/
 
-#Doctrine 2
-# app/data/DoctrineORMModule/Proxy/
-# app/data/DoctrineORMModule/cache/
+# Doctrine 2
+app/data/DoctrineORMModule/Proxy/
+app/data/DoctrineORMModule/cache/

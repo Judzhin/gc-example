@@ -19,16 +19,7 @@ RUN apk del gcc g++ autoconf make
 FROM scratch as prod
 COPY ./app/ .
 
-#RUN /usr/bin/composer install --no-dev -o --no-scripts && \
-#    mkdir -p ./data/logs && \
-#    touch ./data/logs/err.log && \
-#    chown -R www-data:www-data . \
-#    chmod -R 0777 ./data/logs
-#
-#USER www-data
+RUN /usr/bin/composer install --no-dev -o --no-scripts \
+    && chown -R www-data:www-data .
 
-# For mini debug
-RUN /usr/bin/composer install && \
-    mkdir -p /var/www/html/data/logs && \
-    touch /var/www/html/data/logs/err.log && \
-    chmod -R 0777 /var/www/html/data/logs
+USER www-data
