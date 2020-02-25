@@ -30,6 +30,7 @@ return [
                 'name' => Log\Writer\Stream::class,
                 'options' => [
                     'stream' => './data/logs/err.log',
+                    'chmod' => 0777,
                     'formatter' => [
                         'name' => Log\Formatter\Simple::class,
                         'options' => [
