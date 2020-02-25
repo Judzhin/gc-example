@@ -5,11 +5,11 @@
 {% block content %}
     <h1>{{ title }}</h1>
     <dl class="row small">
-        <dt class="col-2 font-weight-bold">Database information:</dt>
-        <dd class="col-10">{{ DB_USER ~ ':' ~ DB_PASS ~ '@' ~ DB_HOST ~ ':' ~ DB_PORT }}</dd>
         <dt class="col-2 font-weight-bold">Pod IP:</dt>
         <dd class="col-10">{{ POD_IP }}</dd>
         <dt class="col-2 font-weight-bold">Log level:</dt>
         <dd class="col-10">{{ LOG_LEVEL }}</dd>
+        <dt class="col-2 font-weight-bold">Database information:</dt>
+        <dd class="col-10">{{ DB_USER ~ ':' ~ DB_PASS ~ '@' ~ DB_HOST ~ ':' ~ DB_PORT }}</dd>
     </dl>
 {% endblock %}

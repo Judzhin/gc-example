@@ -52,7 +52,7 @@ class HomePageHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $this->logger->err('Test Error Handler!');
+        $this->logger->err(sprintf('Write Log From POD: %s', getenv('POD_IP')));
 
         /** @var array $data */
         $data = ArrayUtils::merge([

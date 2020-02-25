@@ -17,12 +17,12 @@ services:
     - gc-network
     working_dir: /var/www
     environment:
+      POD_IP: 127.0.0.1
+      LOG_LEVEL: 'info'
       DB_HOST: 127.0.0.1
       DB_PORT: 3306
       DB_USER: root
       DB_PASS: root
-      POD_IP: 10.0.0.1
-      LOG_LEVEL: 'error'
 
   gc-nginx:
     container_name: gc-nginx
