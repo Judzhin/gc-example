@@ -30,7 +30,7 @@ spec:
             imagePullPolicy: Always
             command:  ['php', 'bin/process.php']
             volumeMounts:
-            - mountPath: "/var/www/html/data/logs"
+            - mountPath: "/var/www/html/data/log"
               name: gc-log-storages
             env:
             - name: "POD_IP"
