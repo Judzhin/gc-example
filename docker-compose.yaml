@@ -11,14 +11,14 @@ services:
       args:
         ENVIRONMENT: dev
     volumes:
-    - ./app:/var/www:rw
+    - ./app:/var/www/html:rw
     - ~/.ssh:/root/.ssh:ro
     networks:
     - gc-network
-    working_dir: /var/www
+    working_dir: /var/www/html
     environment:
       POD_IP: 127.0.0.1
-      LOG_LEVEL: 'info'
+      LOG_LEVEL: 'err'
       DB_HOST: 127.0.0.1
       DB_PORT: 3306
       DB_USER: root
@@ -32,7 +32,7 @@ services:
       args:
         ENVIRONMENT: dev
     volumes:
-    - ./app:/var/www
+    - ./app:/var/www/html
     networks:
     - gc-network
     ports:

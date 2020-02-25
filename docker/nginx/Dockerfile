@@ -11,7 +11,7 @@ RUN chmod +x /usr/local/bin/dumb-init
 COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY docker/nginx/default_${ENVIRONMENT}.conf /etc/nginx/conf.d/default.conf
 
-COPY ./app/public /var/www/public
+COPY ./app/public /var/www/html/public
 
 WORKDIR /var/www
 ENTRYPOINT ["dumb-init", "--rewrite", "15:3"]

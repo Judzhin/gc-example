@@ -6,7 +6,7 @@ ENV ENVIRONMENT=${ENVIRONMENT}
 COPY docker/php-fpm/php_${ENVIRONMENT}.ini /usr/local/etc/php/php.ini
 COPY docker/php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
 RUN curl --silent --show-error https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 # DEV env (local)
 FROM scratch as dev
@@ -29,6 +29,6 @@ COPY ./app/ .
 
 # For mini debug
 RUN /usr/bin/composer install && \
-    mkdir -p ./data/logs && \
-    touch ./data/logs/err.log && \
-    chmod -R 0777 ./data/logs
+    mkdir -p /var/www/html/data/logs && \
+    touch /var/www/html/data/logs/err.log && \
+    chmod -R 0777 /var/www/html/data/logs

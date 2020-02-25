@@ -12,7 +12,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/var/logs/gc-example"
+    path: "/var/log/gc-example"
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1

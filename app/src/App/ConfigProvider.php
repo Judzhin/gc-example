@@ -37,6 +37,7 @@ class ConfigProvider
             ],
             'factories' => [
                 Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
+                Http\Server\PodMiddleware::class => Http\Server\PodMiddlewareFactory::class
             ],
         ];
     }

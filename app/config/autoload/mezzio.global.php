@@ -26,6 +26,28 @@ return [
 
     'log' => [
         'writers' => [
+            'info' => [
+                'name' => Log\Writer\Stream::class,
+                'options' => [
+                    'stream' => './data/logs/info.log',
+                    'chmod' => 0777,
+                    'formatter' => [
+                        'name' => Log\Formatter\Simple::class,
+                        'options' => [
+                            'format' => '%timestamp% %priorityName% (%priority%): %message% %extra%',
+                            'dateTimeFormat' => 'c', // 'Y-m-d H:i:s',
+                        ],
+                    ],
+                    'filters' => [
+                        'priority' => [
+                            'name' => Log\Filter\Priority::class,
+                            'options' => [
+                                'priority' => Log\Logger::INFO,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
             'stream' => [
                 'name' => Log\Writer\Stream::class,
                 'options' => [
