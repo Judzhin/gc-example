@@ -11,9 +11,9 @@ metadata:
     app: gc-example
 spec:
   rules:
-    - http:
-        paths:
-          - path: "/"
-            backend:
-              serviceName: gc-example-svc
-              servicePort: 80
+  - http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: gc-example-svc
+          servicePort: 80

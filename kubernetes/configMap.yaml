@@ -4,6 +4,6 @@ metadata:
   name: gc-example-config
   namespace: gc-example
 data:
-  DB_HOST: "127.0.0.1"
-  DB_PORT: "3306"
-  DB_USER: "root"
+  DB_HOST: '127.0.0.1'
+  DB_PORT: '3306'
+  DB_USER: 'root'

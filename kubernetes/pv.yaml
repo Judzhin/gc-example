@@ -1,3 +1,19 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: gc-example-pvc
+  namespace: gc-example
+spec:
+  storageClassName: manual
+  selector:
+    matchLabels:
+      name: go-volume-example
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
 kind: PersistentVolume
 apiVersion: v1
 metadata:
@@ -10,22 +26,6 @@ spec:
   capacity:
     storage: 1Gi
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   hostPath:
     path: "/var/log/gc-example"
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: gc-example-pvc
-  namespace: gc-example
-spec:
-  storageClassName: manual
-  selector:
-    matchLabels:
-      name: go-volume-example
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi

@@ -25,15 +25,15 @@ spec:
               claimName: gc-example-pvc
           restartPolicy: Never
           containers:
-            - name: gc-cron-example
-              image: judzhin/gc-php-fpm-example:v1
-              imagePullPolicy: Always
-              command:  ['php', 'bin/process.php']
-              volumeMounts:
-                - mountPath: "/var/www/html/data/logs"
-                  name: gc-log-storages
-              env:
-                - name: "POD_IP"
-                  valueFrom:
-                    fieldRef:
-                      fieldPath: status.podIP
+          - name: gc-cron-example
+            image: judzhin/gc-php-fpm-example:v1
+            imagePullPolicy: Always
+            command:  ['php', 'bin/process.php']
+            volumeMounts:
+            - mountPath: "/var/www/html/data/logs"
+              name: gc-log-storages
+            env:
+            - name: "POD_IP"
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP

@@ -24,13 +24,13 @@ spec:
         image: judzhin/gc-php-fpm-example:v1
         command: ['php', 'bin/prepare.php']
         volumeMounts:
-          - mountPath: "/var/www/html/data/logs"
-            name: gc-log-storages
+        - mountPath: "/var/www/html/data/logs"
+          name: gc-log-storages
         env:
-          - name: "POD_IP"
-            valueFrom:
-              fieldRef:
-                fieldPath: status.podIP
+        - name: "POD_IP"
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
       containers:
       - name: gc-php-fpm-example
         image: judzhin/gc-php-fpm-example:v1
@@ -69,5 +69,5 @@ spec:
         image: judzhin/gc-nginx-example:v1
         imagePullPolicy: Always
         ports:
-          - containerPort: 80
-            protocol: TCP
+        - containerPort: 80
+          protocol: TCP
