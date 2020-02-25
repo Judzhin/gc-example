@@ -27,6 +27,8 @@ spec:
             - mountPath: "/var/www/data/log"
               name: log-storages
           env:
+            - name: "FIX"
+              value: "VAL"
             - name: "DB_HOST"
               valueFrom:
                 configMapKeyRef:

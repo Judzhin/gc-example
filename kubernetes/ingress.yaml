@@ -4,8 +4,8 @@ metadata:
   name: gc-example-ingress
   namespace: gc-example
   annotations:
-#    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-#    nginx.ingress.kubernetes.io/rewrite-target: "/"
+    # nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    # nginx.ingress.kubernetes.io/rewrite-target: "/"
     kubernetes.io/ingress.class: nginx
   labels:
     app: gc-example
@@ -15,5 +15,5 @@ spec:
         paths:
           - path: "/"
             backend:
-              serviceName: gc-example
+              serviceName: gc-example-svc
               servicePort: 80

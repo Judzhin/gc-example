@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
+use Laminas\Log\LoggerAbstractServiceFactory;
+
 return [
     // Provides application-wide services.
     // We recommend using fully-qualified class names whenever possible as
     // service names.
     'dependencies' => [
         'abstract_factories' => [
-            \Laminas\Log\LoggerAbstractServiceFactory::class
+            LoggerAbstractServiceFactory::class
         ],
         // Use 'aliases' to alias a service name to another service. The
         // key is the alias name, the value is the service to which it points.

@@ -24,7 +24,8 @@ RUN /usr/bin/composer install --no-dev -o --no-scripts && \
 
 # For mini debug
 RUN /usr/bin/composer install && \
-    chown -R www-data:www-data .
+    chown -R www-data:www-data . && \
+    chmod -R 0777 ./data
 
-ENV APP_ENV prod
+# ENV APP_ENV prod
 USER www-data

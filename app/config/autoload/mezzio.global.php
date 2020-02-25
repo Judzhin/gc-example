@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Laminas\ConfigAggregator\ConfigAggregator;
+use Laminas\Log;
 
 return [
     // Toggle the configuration cache. Set this to boolean false, or remove the
@@ -25,28 +26,27 @@ return [
 
     'log' => [
         'writers' => [
-            'stream' => [
-                'name' => \Laminas\Log\Writer\Stream::class,
-                'options' => [
-                    'stream' => "./data/log/errors.log",
-                    'mode' => 'a+',
-                    'formatter' => [
-                        'name' => \Laminas\Log\Formatter\Simple::class,
-                        'options' => [
-                            'format' => '%timestamp% %priorityName% (%priority%): %message% %extra%',
-                            'dateTimeFormat' => 'c', // 'Y-m-d H:i:s',
-                        ],
-                    ],
-                    'filters' => [
-                        'priority' => [
-                            'name' => \Laminas\Log\Filter\Priority::class,
-                            'options' => [
-                                'priority' => \Laminas\Log\Logger::ERR,
-                            ],
-                        ],
-                    ],
-                ],
-            ],
+//            'stream' => [
+//                'name' => Log\Writer\Stream::class,
+//                'options' => [
+//                    'stream' => './data/log/err.log',
+//                    'formatter' => [
+//                        'name' => Log\Formatter\Simple::class,
+//                        'options' => [
+//                            'format' => '%timestamp% %priorityName% (%priority%): %message% %extra%',
+//                            'dateTimeFormat' => 'c', // 'Y-m-d H:i:s',
+//                        ],
+//                    ],
+//                    'filters' => [
+//                        'priority' => [
+//                            'name' => Log\Filter\Priority::class,
+//                            'options' => [
+//                                'priority' => Log\Logger::ERR,
+//                            ],
+//                        ],
+//                    ],
+//                ],
+//            ],
         ]
     ],
 ];

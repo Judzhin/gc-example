@@ -4,12 +4,36 @@ metadata:
   name: gc-example-svc
   namespace: gc-example
 spec:
-  type: NodePort # need to remove
+  # type: NodePort # need to remove
   selector:
     app: gc-example
     type: web-service
   ports:
   - port: 80
     targetPort: 80
-    nodePort: 32007 # need to remove
+    # nodePort: 32007 # need to remove
     protocol: TCP
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+spec:
+  externalTrafficPolicy: Local
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: http
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: https
