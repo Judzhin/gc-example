@@ -26,27 +26,27 @@ return [
 
     'log' => [
         'writers' => [
-//            'stream' => [
-//                'name' => Log\Writer\Stream::class,
-//                'options' => [
-//                    'stream' => './data/log/err.log',
-//                    'formatter' => [
-//                        'name' => Log\Formatter\Simple::class,
-//                        'options' => [
-//                            'format' => '%timestamp% %priorityName% (%priority%): %message% %extra%',
-//                            'dateTimeFormat' => 'c', // 'Y-m-d H:i:s',
-//                        ],
-//                    ],
-//                    'filters' => [
-//                        'priority' => [
-//                            'name' => Log\Filter\Priority::class,
-//                            'options' => [
-//                                'priority' => Log\Logger::ERR,
-//                            ],
-//                        ],
-//                    ],
-//                ],
-//            ],
+            'stream' => [
+                'name' => Log\Writer\Stream::class,
+                'options' => [
+                    'stream' => './data/logs/err.log',
+                    'formatter' => [
+                        'name' => Log\Formatter\Simple::class,
+                        'options' => [
+                            'format' => '%timestamp% %priorityName% (%priority%): %message% %extra%',
+                            'dateTimeFormat' => 'c', // 'Y-m-d H:i:s',
+                        ],
+                    ],
+                    'filters' => [
+                        'priority' => [
+                            'name' => Log\Filter\Priority::class,
+                            'options' => [
+                                'priority' => Log\Logger::ERR,
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ]
     ],
 ];

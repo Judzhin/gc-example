@@ -29,7 +29,7 @@ class HomePageHandlerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): HomePageHandler
     {
         return new HomePageHandler(
-            null, // $container->get(Logger::class),
+            $container->get(Logger::class),
             $container->get(RouterInterface::class),
             $container->has(TemplateRendererInterface::class)
                 ? $container->get(TemplateRendererInterface::class) : null

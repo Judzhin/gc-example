@@ -6,7 +6,6 @@ namespace App\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\JsonResponse;
-use Laminas\Log\Logger;
 use Laminas\Log\LoggerInterface;
 use Laminas\Stdlib\ArrayUtils;
 use Mezzio\Router;
@@ -33,11 +32,11 @@ class HomePageHandler implements RequestHandlerInterface
     /**
      * HomePageHandler constructor.
      *
-     * @param null $logger
+     * @param LoggerInterface $logger
      * @param Router\RouterInterface $router
      * @param TemplateRendererInterface|null $template
      */
-    public function __construct($logger = null, Router\RouterInterface $router, ?TemplateRendererInterface $template = null)
+    public function __construct(LoggerInterface $logger, Router\RouterInterface $router, ?TemplateRendererInterface $template = null)
     {
         $this->logger = $logger;
         $this->router = $router;
@@ -53,7 +52,7 @@ class HomePageHandler implements RequestHandlerInterface
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        // $this->logger->err('Test Error Handler!');
+        $this->logger->err('Test Error Handler!');
 
         /** @var array $data */
         $data = ArrayUtils::merge([

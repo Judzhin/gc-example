@@ -24,7 +24,7 @@
 
     <logging>
         <log type="coverage-html"
-             target="./data/log/report"
+             target="./data/logs/report"
              lowUpperBound="50"
              highLowerBound="80"/>
         <log type="testdox-html"
