@@ -1,47 +1,81 @@
-# Setup ————————————————————————————————————————————————————————————————————————
-SHELL = bash
-PROJECT = gc-example
-EXEC_PHP = php
-REDIS = redis-cli
-GIT = git
-GIT_AUTHOR = judzhin
-SYMFONY = $(EXEC_PHP) bin/console
-SYMFONY_BIN = ./symfony
-COMPOSER = composer # || || $(EXEC_PHP) composer.phar
-DOCKER = docker-compose
-BREW = brew
-.DEFAULT_GOAL = help
-#.PHONY = # Not needed for now
+#!make
+include .env
+
+TAG := 1.0
+
+ifndef TAG
+$(error The TAG variable is missing.)
+endif
+
+ENV := dev
+
+ifndef ENV
+$(error The ENV variable is missing.)
+endif
+ 
+ifeq ($(filter $(ENV),test dev stag prod),)
+$(error The ENV variable is invalid.)
+endif
+ 
+ifeq (,$(filter $(ENV),test dev))
+COMPOSE_FILE_PATH := -f docker-compose.yaml
+endif
+
+IMAGE := judzhin/gc-example
+DOCKER := docker-compose
 
 help: ## Outputs this help screen
 	@grep -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 
-wait: ## Sleep 5 seconds
-	sleep 5
+build: ## Build or rebuild services without cache when building the image
+	$(info Make: Building "$(ENV)" environment images.)
+	@TAG=$(TAG) docker-compose build --no-cache
+	@#make -s clean
 
-## —— Composer 🧙‍♂️ ————————————————————————————————————————————————————————————
-install: composer.lock ## Install vendors according to the current composer.lock file
-	docker-compose run --rm gc-php-fpm $(COMPOSER) install
+list: ## Build or rebuild services without cache when building the image
+	$(info Make: List "$(ENV)" images used by the created containers.)
+	@TAG=$(TAG) $(DOCKER) images
 
-update: composer.json ## Update vendors according to the composer.json file
-	docker-compose run --rm gc-php-fpm $(COMPOSER) update
+start: ## Builds, (re)creates, starts, and attaches to containers for a service in the background
+	$(info Make: Starting "$(ENV)" environment containers.)
+	@TAG=$(TAG) $(DOCKER) $(COMPOSE_FILE_PATH) up -d
 
-## —— Docker 🐳 ————————————————————————————————————————————————————————————————
-up: docker-compose.yaml ## Start the docker hub (MySQL,redis,adminer,elasticsearch,head,Kibana)
-	$(DOCKER) -f docker-compose.yaml up -d
+stop: ## Stop running containers without removing them
+	$(info Make: Stopping "$(ENV)" environment containers.)
+	@TAG=$(TAG) $(DOCKER) stop
 
-down: docker-compose.yaml ## Stop the docker hub
-	$(DOCKER) down --remove-orphans
+down: ## Stops containers and removes containers, networks, volumes, and images created by `up`
+	$(info Make: Stopping and removing "$(ENV)" environment containers, networks, and volumes.)
+	@TAG=$(TAG) $(DOCKER) down --remove-orphans
 
-clear-cache: composer.json ## Update vendors according to the composer.json file
-	docker-compose run --rm gc-php-fpm php bin/clear-config-cache.php
+clear: ## Stops containers and removes containers, networks, volumes with static informations
+	$(info Make: Stopping and removing "$(ENV)" environment containers, networks, and volumes with data.)
+	@docker-compose down -v --remove-orphans
 
-build-production:
-	docker build --build-arg ENVIRONMENT=prod -f docker/nginx/Dockerfile -t judzhin/gc-nginx-example:v1 .
-	docker build --build-arg ENVIRONMENT=prod -f docker/php-fpm/Dockerfile -t judzhin/gc-php-fpm-example:v1 .
+recreate: ## Recreate containers
+	$(info Make: Recreateing "$(ENV)" environment containers.)
+	@TAG=$(TAG) $(DOCKER) up -d --build --force-recreate --no-deps
 
-push-production:
-	docker push judzhin/gc-nginx-example:v1
-	docker push judzhin/gc-php-fpm-example:v1
+restart: ## Stop and start containers
+	$(info Make: Restarting "$(ENV)" environment containers.)
+	@make -s stop
+	@make -s start
 
-deploy-production: build-production push-production
+push: ## Pushing image to hub
+	$(info Make: Pushing "$(TAG)" tagged image.)
+	@docker push $(IMAGE):$(TAG)
+
+pull: ## Pulling image from hub
+	$(info Make: Pulling "$(TAG)" tagged image.)
+	@docker pull $(IMAGE):$(TAG)
+
+clean: ## Remove unused data without prompt for confirmation
+	@docker system prune --volumes --force
+
+login: ## Login to Docker Hub.
+	$(info Make: Login to Docker Hub.)
+	@docker login -u $(DOCKER_USER) -p $(DOCKER_PASS)
+
+cli: ## Run CLI
+	$(info Make: Run CLI)
+	@docker-compose exec php-fpm bash

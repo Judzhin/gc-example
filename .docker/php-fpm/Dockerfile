@@ -1,10 +1,11 @@
 FROM php:7.3-fpm-alpine as scratch
 
-ARG ENVIRONMENT
-ENV ENVIRONMENT=${ENVIRONMENT}
+ARG APP_ENV
+ENV APP_ENV=${APP_ENV}
 
-COPY docker/php-fpm/php_${ENVIRONMENT}.ini /usr/local/etc/php/php.ini
-COPY docker/php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
+COPY .docker/php-fpm/php_${APP_ENV}.ini /usr/local/etc/php/php.ini
+COPY .docker/php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
+
 RUN curl --silent --show-error https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 WORKDIR /var/www/html
 

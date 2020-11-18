@@ -2,14 +2,14 @@ version: '3.5'
 
 services:
 
-  gc-php-fpm:
+  php-fpm:
     container_name: gc-php-fpm
     build:
       context: .
-      dockerfile: docker/php-fpm/Dockerfile
-      target: dev
+      dockerfile: .docker/php-fpm/Dockerfile
+      target: ${APP_ENV:-dev}
       args:
-        ENVIRONMENT: dev
+        APP_ENV: ${APP_ENV:-dev}
     volumes:
     - ./app:/var/www/html:rw
     - ~/.ssh:/root/.ssh:ro
@@ -17,20 +17,21 @@ services:
     - gc-network
     working_dir: /var/www/html
     environment:
-      POD_IP: 127.0.0.1
-      LOG_LEVEL: 'err'
-      DB_HOST: 127.0.0.1
-      DB_PORT: 3306
-      DB_USER: root
-      DB_PASS: root
+      POD_IP: ${POD_IP:-127.0.0.1}
+      LOG_LEVEL: ${LOG_LEVEL:-err}
+      DB_HOST: ${DB_HOST:-127.0.0.1}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_USER: ${DB_USER:-root}
+      DB_PASS: ${DB_PASS:-root}
 
-  gc-nginx:
+  nginx:
     container_name: gc-nginx
     build:
       context: .
-      dockerfile: ./docker/nginx/Dockerfile
+      dockerfile: .docker/nginx/Dockerfile
+      target: ${APP_ENV:-dev}
       args:
-        ENVIRONMENT: dev
+        APP_ENV: ${APP_ENV:-dev}
     volumes:
     - ./app:/var/www/html
     networks:
@@ -38,7 +39,7 @@ services:
     ports:
     - 3107:80
     depends_on:
-    - gc-php-fpm
+    - php-fpm
 
 networks:
   gc-network:

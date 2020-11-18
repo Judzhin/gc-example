@@ -3,4 +3,3 @@
 /phpunit.xml
 /vendor/
 !/bin
-!/bin/clear-config-cache.php
